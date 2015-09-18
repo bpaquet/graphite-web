@@ -24,6 +24,8 @@ try:
 except ImportError:
   from StringIO import StringIO
 
+import sys
+
 from os import environ
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
@@ -89,6 +91,9 @@ if USING_CPICKLE:
     PICKLE_SAFE = {
       'copy_reg': set(['_reconstructor']),
       '__builtin__': set(['object']),
+      'collections': set(['deque']),
+      'graphite.render.datalib': set(['TimeSeries']),
+      'graphite.intervals': set(['Interval', 'IntervalSet']),
     }
 
     @classmethod
@@ -112,6 +117,9 @@ else:
     PICKLE_SAFE = {
       'copy_reg': set(['_reconstructor']),
       '__builtin__': set(['object']),
+      'collections': set(['deque']),
+      'graphite.render.datalib': set(['TimeSeries']),
+      'graphite.intervals': set(['Interval', 'IntervalSet']),
     }
 
     def find_class(self, module, name):
